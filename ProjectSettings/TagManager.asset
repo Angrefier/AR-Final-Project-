@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - iceAttack_anim_left
+  - iceAttack_anim_right
   layers:
   - Default
   - TransparentFX
