@@ -138,22 +138,22 @@ AnimatorStateMachine:
     m_Position: {x: 260, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5944512373590610108}
-    m_Position: {x: 40, y: 40, z: 0}
+    m_Position: {x: 20, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4925132768168273376}
-    m_Position: {x: 550, y: 30, z: 0}
+    m_Position: {x: 550, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8311926794502156514}
-    m_Position: {x: 540, y: 80, z: 0}
+    m_Position: {x: 550, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7548190325333014106}
-    m_Position: {x: 500, y: 200, z: 0}
+    m_Position: {x: 550, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3833198518235373941}
-    m_Position: {x: 10, y: 160, z: 0}
+    m_Position: {x: 20, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1430299990151701479}
-    m_Position: {x: 250, y: 270, z: 0}
+    m_Position: {x: 280, y: 250, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 8100335327715093290}
@@ -164,9 +164,9 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 260, y: 200, z: 0}
-  m_EntryPosition: {x: 280, y: -50, z: 0}
-  m_ExitPosition: {x: 600, y: -80, z: 0}
+  m_AnyStatePosition: {x: 290, y: 170, z: 0}
+  m_EntryPosition: {x: 280, y: -40, z: 0}
+  m_ExitPosition: {x: 500, y: -70, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1108141731854769904}
 --- !u!1101 &-569319277429497329
@@ -226,7 +226,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: shieldDefence
     m_Type: 9
@@ -433,7 +433,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: atack2
-  m_Speed: 2.5
+  m_Speed: 2.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -569319277429497329}
