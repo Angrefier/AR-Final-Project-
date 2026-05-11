@@ -77,7 +77,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    protected virutal void Defence(){
+    protected virtual void Defence(){
         defenceActive = true;
         Debug.Log(name + " raises a shield!");
         animator.SetTrigger("defence");
