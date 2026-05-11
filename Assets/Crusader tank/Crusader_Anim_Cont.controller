@@ -222,17 +222,17 @@ AnimatorController:
   m_Name: Crusader_Anim_Cont
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: fireAttack
+  - m_Name: attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: shieldDefence
+  - m_Name: defence
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: isSkillActive
     m_Type: 4
@@ -461,7 +461,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: shieldDefence
+    m_ConditionEvent: defence
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8311926794502156514}
@@ -557,7 +557,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: fireAttack
+    m_ConditionEvent: attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5944512373590610108}
