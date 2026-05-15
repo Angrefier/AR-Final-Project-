@@ -269,7 +269,6 @@ public class GameManager : MonoBehaviour
         PrepareNewRound();
     }
 
-    /// <summary>Executes one player's selected skill; applies attack damage after a short delay.</summary>
     private IEnumerator ResolveAction(PlayerSide actorSide)
     {
         Character actor = GetCharacter(actorSide);
