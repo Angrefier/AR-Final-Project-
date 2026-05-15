@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Controls turn flow: dice roll, skill selection, round resolution, and win condition.
-/// </summary>
 public enum PlayerSide
 {
     Wizard,
@@ -27,7 +24,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI statusText;
 
     [Header("UI Buttons")]
-    public Button rollDiceButton;
+    public Button startGameButton;
     public Button resolveRoundButton;
 
     [Header("Timing")]
@@ -37,13 +34,12 @@ public class GameManager : MonoBehaviour
     [Header("Options")]
     public bool autoResolveWhenBothSelected = false;
 
-    // Round and turn state
     private int roundNumber = 0;
-    private PlayerSide actionFirstPlayer;      // Who acts first when the round resolves
-    private PlayerSide currentSelectingPlayer; // Who picks a skill next
 
-    // Flow flags
-    private bool diceRolled = false;
+    private PlayerSide actionFirstPlayer;
+    private PlayerSide currentSelectingPlayer;
+
+    private bool gameStarted = false;
     private bool wizardHasSelected = false;
     private bool crusaderHasSelected = false;
     private bool isResolvingRound = false;
@@ -52,9 +48,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetButtonInteractable(resolveRoundButton, false);
-        SetButtonInteractable(rollDiceButton, true);
+        SetButtonInteractable(startGameButton, true);
 
-        UpdateStatus("Roll dice to start the game.");
+        SetButtonVisible(startGameButton, true);
 
         if (wizardDiceText != null)
         {
@@ -80,16 +76,31 @@ public class GameManager : MonoBehaviour
         {
             currentSelectorText.text = "Current Selector: -";
         }
+
+        UpdateStatus("Press Start Game to begin.");
     }
 
-    /// <summary>Rolls dice for both players; higher roll goes first. Ties are rerolled.</summary>
-    public void RollDice()
+    public void StartGame()
     {
-        if (gameOver || isResolvingRound)
+        if (gameStarted || gameOver || isResolvingRound)
         {
             return;
         }
 
+        RollInitialDice();
+
+        roundNumber = 1;
+        gameStarted = true;
+
+        PrepareNewRound();
+
+        SetButtonVisible(startGameButton, false);
+
+        UpdateStatus(GetPlayerName(actionFirstPlayer) + " starts the game.");
+    }
+
+    private void RollInitialDice()
+    {
         int wizardRoll;
         int crusaderRoll;
         int rerollCount = 0;
@@ -121,24 +132,12 @@ public class GameManager : MonoBehaviour
             actionFirstPlayer = PlayerSide.Crusader;
         }
 
-        roundNumber = 1;
-        diceRolled = true;
-
-        PrepareNewRound();
-
-        SetButtonInteractable(rollDiceButton, false);
-
         if (rerollCount > 1)
         {
-            UpdateStatus("Dice were equal, rerolled. " + GetPlayerName(actionFirstPlayer) + " starts.");
-        }
-        else
-        {
-            UpdateStatus(GetPlayerName(actionFirstPlayer) + " starts.");
+            Debug.Log("Dice were equal. Dice rolled again automatically.");
         }
     }
 
-    /// <summary>Resets selection state and UI for a new round.</summary>
     private void PrepareNewRound()
     {
         wizardHasSelected = false;
@@ -160,12 +159,11 @@ public class GameManager : MonoBehaviour
         UpdateStatus(GetPlayerName(currentSelectingPlayer) + " selects a skill first.");
     }
 
-    /// <summary>Assigns a skill to whoever is currently selecting, then passes turn to the other player.</summary>
     public void SelectSkillForCurrentPlayer(SkillType skill)
     {
-        if (!diceRolled)
+        if (!gameStarted)
         {
-            UpdateStatus("Roll dice first.");
+            UpdateStatus("Start the game first.");
             return;
         }
 
@@ -209,17 +207,17 @@ public class GameManager : MonoBehaviour
         }
 
         currentSelectingPlayer = GetOtherPlayer(currentSelectingPlayer);
+
         UpdateCurrentSelectorText();
 
         UpdateStatus(GetPlayerName(currentSelectingPlayer) + " selects a skill now.");
     }
 
-    /// <summary>Plays out both players' skills in turn order, then starts the next round.</summary>
     public void ResolveRound()
     {
-        if (!diceRolled)
+        if (!gameStarted)
         {
-            UpdateStatus("Roll dice first.");
+            UpdateStatus("Start the game first.");
             return;
         }
 
@@ -240,6 +238,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResolveRoundCoroutine()
     {
         isResolvingRound = true;
+
         SetButtonInteractable(resolveRoundButton, false);
 
         PlayerSide secondPlayer = GetOtherPlayer(actionFirstPlayer);
@@ -265,7 +264,6 @@ public class GameManager : MonoBehaviour
 
         roundNumber++;
 
-        // Swap first player for the next round
         actionFirstPlayer = GetOtherPlayer(actionFirstPlayer);
 
         PrepareNewRound();
@@ -300,6 +298,7 @@ public class GameManager : MonoBehaviour
             if (!target.IsDead())
             {
                 int damage = GetAttackDamage(actor);
+
                 target.GetHit(damage);
 
                 UpdateStatus(GetPlayerName(actorSide) + " attacked for " + damage + " damage.");
@@ -381,7 +380,7 @@ public class GameManager : MonoBehaviour
         isResolvingRound = false;
 
         SetButtonInteractable(resolveRoundButton, false);
-        SetButtonInteractable(rollDiceButton, false);
+        SetButtonVisible(startGameButton, false);
 
         UpdateStatus("Game Over! Winner: " + GetPlayerName(winner));
     }
@@ -430,6 +429,14 @@ public class GameManager : MonoBehaviour
         if (button != null)
         {
             button.interactable = value;
+        }
+    }
+
+    private void SetButtonVisible(Button button, bool value)
+    {
+        if (button != null)
+        {
+            button.gameObject.SetActive(value);
         }
     }
 
