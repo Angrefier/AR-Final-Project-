@@ -11,19 +11,22 @@ public enum SkillType
 
 public abstract class Character : MonoBehaviour
 {
-    // Stats
+    [Header("Stats")]
     public int maxHealth = 100;
     public int currentHealth;
 
-    // Animator
+    [Header("Animator")]
     public Animator animator;
+
+    [Header("Health Bar")]
+    public HealthBar healthBar;
+
+    [Header("Timing")]
+    public float returnToIdleDelay = 1.5f;
 
     protected bool isDead = false;
     protected bool defenceActive = false;
     protected SkillType selectedSkill = SkillType.None;
-
-    // Return Back to Idle State after using a skill
-    public float returnToIdleDelay = 1.5f;
 
     protected virtual void Start()
     {
@@ -38,6 +41,11 @@ public abstract class Character : MonoBehaviour
         {
             Debug.LogError(name + " has no Animator component.");
             return;
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.Initialize(maxHealth);
         }
 
         SetNormalIdle();
@@ -107,6 +115,8 @@ public abstract class Character : MonoBehaviour
             currentHealth = 0;
         }
 
+        UpdateHealthBar();
+
         Debug.Log(name + " takes " + damage + " damage. Current health: " + currentHealth);
 
         if (currentHealth <= 0)
@@ -166,6 +176,8 @@ public abstract class Character : MonoBehaviour
             currentHealth = maxHealth;
         }
 
+        UpdateHealthBar();
+
         animator.SetTrigger("getHeal");
 
         Debug.Log(name + " heals for " + amount + ". Current health: " + currentHealth);
@@ -179,6 +191,9 @@ public abstract class Character : MonoBehaviour
         }
 
         isDead = true;
+
+        currentHealth = 0;
+        UpdateHealthBar();
 
         animator.SetBool("isDead", true);
 
@@ -219,6 +234,14 @@ public abstract class Character : MonoBehaviour
         Debug.Log(name + " round ended. Defence is now inactive.");
     }
 
+    protected void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealth(currentHealth);
+        }
+    }
+
     public bool IsDead()
     {
         return isDead;
@@ -232,5 +255,20 @@ public abstract class Character : MonoBehaviour
     public SkillType GetSelectedSkill()
     {
         return selectedSkill;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void TestDamage()
+    {
+        GetHit(20);
+    }
+
+    public void TestHeal()
+    {
+        Heal(20);
     }
 }
