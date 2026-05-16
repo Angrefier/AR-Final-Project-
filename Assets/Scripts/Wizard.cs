@@ -3,12 +3,16 @@ using UnityEngine;
 public class Wizard : Character
 {
     [Header("Wizard Skill Idle Particles")]
-    public GameObject attackIdleParticle;
-    public GameObject defenceIdleParticle;
-    public GameObject healIdleParticle;
+    public GameObject attackIdleRightParticle;
+    public GameObject attackIdleLeftParticle;
+    public GameObject defenceIdleRightParticle;
+    public GameObject defenceIdleLeftParticle;
+    public GameObject healIdleRightParticle;
+    public GameObject healIdleLeftParticle;
 
     [Header("Wizard Action Particles")]
-    public ParticleSystem attackParticle;
+    public ParticleSystem attackRightParticle;
+    public ParticleSystem attackLeftParticle;
     public ParticleSystem defenceParticle;
     public ParticleSystem healParticle;
     public ParticleSystem hitParticle;
@@ -47,23 +51,35 @@ public class Wizard : Character
 
         if (skill == SkillType.Attack)
         {
-            if (attackIdleParticle != null)
+            if (attackIdleRightParticle != null)
             {
-                attackIdleParticle.SetActive(true);
+                attackIdleRightParticle.SetActive(true);
+            }
+            if (attackIdleLeftParticle != null)
+            {
+                attackIdleLeftParticle.SetActive(true);
             }
         }
         else if (skill == SkillType.Shield)
         {
-            if (defenceIdleParticle != null)
+            if (defenceIdleRightParticle != null)
             {
-                defenceIdleParticle.SetActive(true);
+                defenceIdleRightParticle.SetActive(true);
+            }
+            if (defenceIdleLeftParticle != null)
+            {
+                defenceIdleLeftParticle.SetActive(true);
             }
         }
         else if (skill == SkillType.Heal)
         {
-            if (healIdleParticle != null)
+            if (healIdleRightParticle != null)
             {
-                healIdleParticle.SetActive(true);
+                healIdleRightParticle.SetActive(true);
+            }
+            if (healIdleLeftParticle != null)
+            {
+                healIdleLeftParticle.SetActive(true);
             }
         }
     }
@@ -94,9 +110,13 @@ public class Wizard : Character
     {
         Attack();
 
-        if (attackParticle != null)
+        if (attackRightParticle != null)
         {
-            attackParticle.Play();
+            attackRightParticle.Play();
+        }
+        if (attackLeftParticle != null)
+        {
+            attackLeftParticle.Play();
         }
 
         PlaySound(attackClip);
@@ -178,19 +198,31 @@ public class Wizard : Character
 
     private void CloseAllIdleParticles()
     {
-        if (attackIdleParticle != null)
+        if (attackIdleRightParticle != null)
         {
-            attackIdleParticle.SetActive(false);
+            attackIdleRightParticle.SetActive(false);
+        }
+        if (attackIdleLeftParticle != null)
+        {
+            attackIdleLeftParticle.SetActive(false);
         }
 
-        if (defenceIdleParticle != null)
+        if (defenceIdleRightParticle != null)
         {
-            defenceIdleParticle.SetActive(false);
+            defenceIdleRightParticle.SetActive(false);
+        }
+        if (defenceIdleLeftParticle != null)
+        {
+            defenceIdleLeftParticle.SetActive(false);
         }
 
-        if (healIdleParticle != null)
+        if (healIdleRightParticle != null)
         {
-            healIdleParticle.SetActive(false);
+            healIdleRightParticle.SetActive(false);
+        }
+        if (healIdleLeftParticle != null)
+        {
+            healIdleLeftParticle.SetActive(false);
         }
     }
 

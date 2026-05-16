@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="titus_heal_card" size="0.100000 0.098617" />
+    <ImageTarget name="titus_shield_card" size="0.100000 0.103347" />
+    <ImageTarget name="titus_attack_card" size="0.100000 0.102222" />
+    <ImageTarget name="malakor_attack_card" size="0.100000 0.100000" />
+    <ImageTarget name="malakor_shield_card" size="0.100000 0.099496" />
+    <ImageTarget name="malakor_heal_card" size="0.100000 0.100000" />
+    <ImageTarget name="malakor_avatar_card" size="0.100000 0.100000" />
+    <ImageTarget name="titus_avatar_card" size="0.100000 0.100000" />
+  </Tracking>
+</QCARConfig>
