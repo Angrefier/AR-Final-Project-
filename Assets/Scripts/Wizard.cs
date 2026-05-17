@@ -41,6 +41,7 @@ public class Wizard : Character
         }
 
         CloseAllIdleParticles();
+        CloseAllActionParticles();
     }
 
     public override void SelectSkill(SkillType skill)
@@ -110,18 +111,25 @@ public class Wizard : Character
     {
         Attack();
 
-        if (attackRightParticle != null)
-        {
-            attackRightParticle.Play();
-        }
-        if (attackLeftParticle != null)
-        {
-            attackLeftParticle.Play();
-        }
+        PlayAttackParticles();
 
         PlaySound(attackClip);
 
         Debug.Log("Wizard used Attack.");
+    }
+
+    public void PlayAttackParticles()
+    {
+        if (attackRightParticle != null)
+        {
+            attackRightParticle.gameObject.SetActive(true);
+            attackRightParticle.Play();
+        }
+        if (attackLeftParticle != null)
+        {
+            attackLeftParticle.gameObject.SetActive(true);
+            attackLeftParticle.Play();
+        }
     }
 
     private void UseWizardDefence()
@@ -130,6 +138,7 @@ public class Wizard : Character
 
         if (defenceParticle != null)
         {
+            defenceParticle.gameObject.SetActive(true);
             defenceParticle.Play();
         }
 
@@ -144,6 +153,7 @@ public class Wizard : Character
 
         if (healParticle != null)
         {
+            healParticle.gameObject.SetActive(true);
             healParticle.Play();
         }
 
@@ -169,6 +179,7 @@ public class Wizard : Character
         {
             if (hitParticle != null)
             {
+                hitParticle.gameObject.SetActive(true);
                 hitParticle.Play();
             }
 
@@ -181,9 +192,11 @@ public class Wizard : Character
         base.Die();
 
         CloseAllIdleParticles();
+        CloseAllActionParticles();
 
         if (deathParticle != null)
         {
+            deathParticle.gameObject.SetActive(true);
             deathParticle.Play();
         }
 
@@ -194,6 +207,16 @@ public class Wizard : Character
     {
         base.SetNormalIdle();
         CloseAllIdleParticles();
+        CloseAllActionParticles();
+    }
+
+    private void CloseAllActionParticles()
+    {
+        if (attackRightParticle != null) attackRightParticle.gameObject.SetActive(false);
+        if (attackLeftParticle != null) attackLeftParticle.gameObject.SetActive(false);
+        if (defenceParticle != null) defenceParticle.gameObject.SetActive(false);
+        if (healParticle != null) healParticle.gameObject.SetActive(false);
+        if (hitParticle != null) hitParticle.gameObject.SetActive(false);
     }
 
     private void CloseAllIdleParticles()

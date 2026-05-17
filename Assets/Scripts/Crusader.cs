@@ -37,6 +37,7 @@ public class Crusader : Character
         }
 
         CloseAllIdleParticles();
+        CloseAllActionParticles();
     }
 
     public override void SelectSkill(SkillType skill)
@@ -96,6 +97,7 @@ public class Crusader : Character
 
         if (attackParticle != null)
         {
+            attackParticle.gameObject.SetActive(true);
             attackParticle.Play();
         }
 
@@ -110,6 +112,7 @@ public class Crusader : Character
 
         if (defenceParticle != null)
         {
+            defenceParticle.gameObject.SetActive(true);
             defenceParticle.Play();
         }
 
@@ -124,6 +127,7 @@ public class Crusader : Character
 
         if (healParticle != null)
         {
+            healParticle.gameObject.SetActive(true);
             healParticle.Play();
         }
 
@@ -149,6 +153,7 @@ public class Crusader : Character
         {
             if (hitParticle != null)
             {
+                hitParticle.gameObject.SetActive(true);
                 hitParticle.Play();
             }
 
@@ -161,9 +166,11 @@ public class Crusader : Character
         base.Die();
 
         CloseAllIdleParticles();
+        CloseAllActionParticles();
 
         if (deathParticle != null)
         {
+            deathParticle.gameObject.SetActive(true);
             deathParticle.Play();
         }
 
@@ -174,6 +181,15 @@ public class Crusader : Character
     {
         base.SetNormalIdle();
         CloseAllIdleParticles();
+        CloseAllActionParticles();
+    }
+
+    private void CloseAllActionParticles()
+    {
+        if (attackParticle != null) attackParticle.gameObject.SetActive(false);
+        if (defenceParticle != null) defenceParticle.gameObject.SetActive(false);
+        if (healParticle != null) healParticle.gameObject.SetActive(false);
+        if (hitParticle != null) hitParticle.gameObject.SetActive(false);
     }
 
     private void CloseAllIdleParticles()

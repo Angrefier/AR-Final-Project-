@@ -63,6 +63,15 @@ public abstract class Character : MonoBehaviour
 
         selectedSkill = skill;
 
+        if (skill == SkillType.Shield)
+        {
+            defenceActive = true;
+        }
+        else
+        {
+            defenceActive = false;
+        }
+
         if (selectedSkill == SkillType.None)
         {
             SetNormalIdle();
