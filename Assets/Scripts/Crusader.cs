@@ -186,10 +186,11 @@ public class Crusader : Character
 
     private void CloseAllActionParticles()
     {
-        if (attackParticle != null) attackParticle.Stop();
-        if (defenceParticle != null) defenceParticle.Stop();
-        if (healParticle != null) healParticle.Stop();
-        if (hitParticle != null) hitParticle.Stop();
+        if (attackParticle != null) { attackParticle.Stop(); attackParticle.gameObject.SetActive(false); }
+        if (defenceParticle != null) { defenceParticle.Stop(); defenceParticle.gameObject.SetActive(false); }
+        if (healParticle != null) { healParticle.Stop(); healParticle.gameObject.SetActive(false); }
+        if (hitParticle != null) { hitParticle.Stop(); hitParticle.gameObject.SetActive(false); }
+        if (deathParticle != null) { deathParticle.Stop(); deathParticle.gameObject.SetActive(false); }
     }
 
     private void CloseAllIdleParticles()

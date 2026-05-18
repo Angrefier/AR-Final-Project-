@@ -60,6 +60,12 @@ public class GameManager : MonoBehaviour
         if (crusaderDiceText != null)
         {
             crusaderDiceText.text = "-";
+            crusaderDiceText.fontSize *= 2;
+        }
+
+        if (wizardDiceText != null)
+        {
+            wizardDiceText.fontSize *= 2;
         }
 
         if (roundText != null)
@@ -70,11 +76,18 @@ public class GameManager : MonoBehaviour
         if (turnOrderText != null)
         {
             turnOrderText.text = "Turn Order: -";
+            turnOrderText.fontSize *= 2;
         }
 
         if (currentSelectorText != null)
         {
             currentSelectorText.text = "Current Selector: -";
+            currentSelectorText.fontSize *= 2;
+        }
+
+        if (statusText != null)
+        {
+            statusText.fontSize *= 2;
         }
 
         UpdateStatus("Press Start Game to begin.");
@@ -331,6 +344,16 @@ public class GameManager : MonoBehaviour
     private bool BothPlayersSelected()
     {
         return wizardHasSelected && crusaderHasSelected;
+    }
+
+    public bool IsSelectingSkills()
+    {
+        return gameStarted && !gameOver && !isResolvingRound && !BothPlayersSelected();
+    }
+
+    public PlayerSide GetCurrentSelectingPlayer()
+    {
+        return currentSelectingPlayer;
     }
 
     private Character GetCharacter(PlayerSide side)

@@ -99,7 +99,10 @@ public abstract class Character : MonoBehaviour
 
         UseSkill(selectedSkill);
 
-        StartCoroutine(ReturnToNormalIdleAfterDelay(returnToIdleDelay));
+        if (selectedSkill != SkillType.Shield)
+        {
+            StartCoroutine(ReturnToNormalIdleAfterDelay(returnToIdleDelay));
+        }
     }
 
     protected abstract void UseSkill(SkillType skill);
