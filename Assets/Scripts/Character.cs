@@ -63,6 +63,15 @@ public abstract class Character : MonoBehaviour
 
         selectedSkill = skill;
 
+        if (skill == SkillType.Shield)
+        {
+            defenceActive = true;
+        }
+        else
+        {
+            defenceActive = false;
+        }
+
         if (selectedSkill == SkillType.None)
         {
             SetNormalIdle();
@@ -90,7 +99,10 @@ public abstract class Character : MonoBehaviour
 
         UseSkill(selectedSkill);
 
-        StartCoroutine(ReturnToNormalIdleAfterDelay(returnToIdleDelay));
+        if (selectedSkill != SkillType.Shield)
+        {
+            StartCoroutine(ReturnToNormalIdleAfterDelay(returnToIdleDelay));
+        }
     }
 
     protected abstract void UseSkill(SkillType skill);

@@ -9,8 +9,12 @@ public class AbilityCardTarget : MonoBehaviour
     [Header("Card Skill")]
     public SkillType cardSkill;
 
+    [Header("Card Owner")]
+    public PlayerSide cardOwner;
+
     private ObserverBehaviour observerBehaviour;
     private bool hasSentSelection = false;
+    private bool isTracked = false;
 
     private void Awake()
     {
@@ -36,40 +40,28 @@ public class AbilityCardTarget : MonoBehaviour
 
     private void OnTargetStatusChanged(ObserverBehaviour behaviour, TargetStatus status)
     {
-        if (status.Status == Status.TRACKED || status.Status == Status.EXTENDED_TRACKED)
+        if (status.Status == Status.TRACKED)
         {
-            OnCardFound();
+            isTracked = true;
         }
         else
         {
-            OnCardLost();
+            isTracked = false;
+            hasSentSelection = false;
+            Debug.Log(name + " lost.");
         }
     }
 
-    private void OnCardFound()
+    private void Update()
     {
-        if (hasSentSelection)
+        if (isTracked && !hasSentSelection && gameManager != null)
         {
-            return;
+            if (gameManager.IsSelectingSkills() && gameManager.GetCurrentSelectingPlayer() == cardOwner)
+            {
+                hasSentSelection = true;
+                gameManager.SelectSkillForCurrentPlayer(cardSkill);
+                Debug.Log(name + " detected and processed. Selected skill: " + cardSkill);
+            }
         }
-
-        hasSentSelection = true;
-
-        if (gameManager != null)
-        {
-            gameManager.SelectSkillForCurrentPlayer(cardSkill);
-            Debug.Log(name + " detected. Selected skill: " + cardSkill);
-        }
-        else
-        {
-            Debug.LogError(name + " has no GameManager assigned.");
-        }
-    }
-
-    private void OnCardLost()
-    {
-        hasSentSelection = false;
-
-        Debug.Log(name + " lost.");
     }
 }
