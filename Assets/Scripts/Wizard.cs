@@ -212,11 +212,11 @@ public class Wizard : Character
 
     private void CloseAllActionParticles()
     {
-        if (attackRightParticle != null) attackRightParticle.gameObject.SetActive(false);
-        if (attackLeftParticle != null) attackLeftParticle.gameObject.SetActive(false);
-        if (defenceParticle != null) defenceParticle.gameObject.SetActive(false);
-        if (healParticle != null) healParticle.gameObject.SetActive(false);
-        if (hitParticle != null) hitParticle.gameObject.SetActive(false);
+        if (attackRightParticle != null) attackRightParticle.Stop();
+        if (attackLeftParticle != null) attackLeftParticle.Stop();
+        if (defenceParticle != null) defenceParticle.Stop();
+        if (healParticle != null) healParticle.Stop();
+        if (hitParticle != null) hitParticle.Stop();
     }
 
     private void CloseAllIdleParticles()

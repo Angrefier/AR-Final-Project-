@@ -367,10 +367,10 @@ public class GameManager : MonoBehaviour
     {
         if (side == PlayerSide.Wizard)
         {
-            return "Wizard";
+            return "Malakor";
         }
 
-        return "Crusader";
+        return "Titus";
     }
 
     private void EndGame(PlayerSide winner)
