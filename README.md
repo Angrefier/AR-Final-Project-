@@ -30,7 +30,7 @@ The game uses **image-target tracking**, rather than plane detection. Character 
 
 ## Team Contributions
 
-### Mehmet KaÄŸan Ã‡evik â€” Technical Art, AR Integration & Game Design
+### Mehmet Kağan Çevik” Technical Art, AR Integration & Game Design
 
 My work focused on assembling the playable experience in Unity and connecting the project's visual, audio and AR components.
 
@@ -43,7 +43,7 @@ My work focused on assembling the playable experience in Unity and connecting th
 - Supported debugging and made targeted C# adjustments to particle-effect playback in `Wizard.cs` and `Crusader.cs` to improve animation/effect synchronization.
 - Troubleshot scene configuration and Android build issues.
 
-### Ramazan ÃœÃ§ler â€” Core Gameplay Programming
+### Ramazan Üçler” Core Gameplay Programming
 
 Ramazan handled the core C# scripting, including the combat logic and gameplay systems. My scripting contribution was focused on integration fixes and visual-effect behavior rather than authorship of the core gameplay code.
 
